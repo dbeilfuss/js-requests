@@ -81,7 +81,15 @@ const ohMy = () => {
   axios
     .get("http://localhost:3000/animals")
     .then((response) => {
-      console.log(response.data);
+      const animals = response.data;
+      console.log(animals);
+      for (const animal of animals) {
+        console.log(animal);
+        const animalLine = document.createElement("p");
+        animalLine.textContent = animal;
+        console.log(animalLine);
+        document.querySelector("body").appendChild(animalLine);
+      }
     })
     .catch((error) => {
       console.error("");
