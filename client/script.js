@@ -111,7 +111,7 @@ document.getElementById("animals-button").addEventListener("click", ohMy);
     We'll be updating this function in the next problem.
 */
 const scaredQuestion = "Is anybody out there";
-const repeatMyParam = (someParam) => {
+const repeatMyParam = () => {
   //YOUR CODE HERE
   axios
     .get(`http://localhost:3000/repeat/${scaredQuestion}`)
@@ -152,9 +152,11 @@ document
 
 // CODE HERE
 
+const query1 = ["name=Dan", "age=40"];
+
 function query() {
   axios
-    .get(`http://localhost:3000/query-test/${scaredQuestion}`)
+    .get(`http://localhost:3000/query-test?${query1[0]}&${query1[1]}`)
     .then((res) => {
       console.log(res);
     })
@@ -213,3 +215,26 @@ document.getElementById("query-button").addEventListener("click", query);
 */
 
 // CODE HERE
+
+function createFood() {
+  const foodInput = document.querySelector("input").value;
+  const body = {
+    newFood: foodInput,
+  };
+
+  axios
+    .post(`http://localhost:3000/food`, body)
+    .then((res) => {
+      console.log(res.data);
+      for (const data of res.data) {
+        let unknownElement = document.createElement("p");
+        unknownElement.textContent = data;
+        document.getElementById("food-list").appendChild(unknownElement);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+document.getElementById("add-food").addEventListener("click", createFood);
